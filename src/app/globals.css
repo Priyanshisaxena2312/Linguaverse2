@@ -1,0 +1,380 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 56% 91%;
+    --foreground: 25 20% 15%;
+    --card: 60 56% 91%;
+    --card-foreground: 25 20% 15%;
+    --popover: 60 56% 91%;
+    --popover-foreground: 25 20% 15%;
+    --primary: 27 29% 50%;
+    --primary-foreground: 60 56% 95%;
+    --secondary: 30 25% 85%;
+    --secondary-foreground: 27 29% 30%;
+    --muted: 30 25% 85%;
+    --muted-foreground: 27 29% 40%;
+    --accent: 25 76% 30%;
+    --accent-foreground: 60 56% 95%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 27 29% 80%;
+    --input: 60 56% 95%;
+    --ring: 27 29% 50%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+  .dark {
+    --background: 25 10% 12%;
+    --foreground: 40 20% 88%;
+    --card: 25 10% 12%;
+    --card-foreground: 40 20% 88%;
+    --popover: 25 10% 12%;
+    --popover-foreground: 40 20% 88%;
+    --primary: 27 29% 50%;
+    --primary-foreground: 25 15% 5%;
+    --secondary: 25 15% 20%;
+    --secondary-foreground: 40 20% 88%;
+    --muted: 25 15% 20%;
+    --muted-foreground: 40 20% 68%;
+    --accent: 25 76% 40%;
+    --accent-foreground: 25 15% 5%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 25 15% 25%;
+    --input: 25 15% 25%;
+    --ring: 27 29% 50%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+/* Global Mobile Scaling - Reduces font size to 85% for common mobile screens */
+@media (max-width: 768px) {
+  html {
+    font-size: 85%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+  .day-with-entry-green, .day-with-entry-red {
+    position: relative;
+  }
+  .day-with-entry-green::after, .day-with-entry-red::after {
+      content: '';
+      position: absolute;
+      bottom: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+  }
+  .day-with-entry-green::after {
+    background-color: hsl(var(--chart-2));
+  }
+  .day-with-entry-red::after {
+    background-color: hsl(var(--destructive));
+  }
+
+  .rdp-day_today.day-with-entry-green::after,
+  .rdp-day_today.day-with-entry-red::after {
+      background-color: hsl(var(--accent-foreground));
+  }
+  .rdp-day_selected.day-with-entry-green::after, .rdp-day_selected:focus.day-with-entry-green::after, .rdp-day_selected:hover.day-with-entry-green::after,
+  .rdp-day_selected.day-with-entry-red::after, .rdp-day_selected:focus.day-with-entry-red::after, .rdp-day_selected:hover.day-with-entry-red::after {
+      background-color: hsl(var(--primary-foreground));
+  }
+  
+  /* Active tab style override for better visibility */
+  .tabs-trigger[data-state=active] {
+    @apply bg-primary/90 text-primary-foreground shadow-md;
+  }
+  
+  .dark .tabs-trigger[data-state=active] {
+    @apply bg-primary text-primary-foreground;
+  }
+
+  /* Journal Entry Theming */
+  .journal-theme-default .journal-content {
+    font-family: var(--font-kalam), cursive;
+  }
+  .journal-theme-default .journal-title {
+    font-family: var(--font-playfair), serif;
+  }
+
+  .journal-theme-classic .journal-content {
+    font-family: var(--font-lora), serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+  .journal-theme-classic .journal-title {
+    font-family: var(--font-merriweather), serif;
+  }
+
+  .journal-theme-modern .journal-content {
+    font-family: var(--font-inter), sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+  .journal-theme-modern .journal-title {
+    font-family: var(--font-inter), sans-serif;
+    font-weight: 700;
+  }
+
+  .journal-theme-monospace .journal-content {
+    font-family: var(--font-fira-code), monospace;
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  .journal-theme-monospace .journal-title {
+    font-family: var(--font-fira-code), monospace;
+  }
+
+  .journal-theme-playful .journal-content {
+    font-family: var(--font-patrick-hand), cursive;
+    font-size: 1.5rem;
+    line-height: 1.8;
+  }
+  .journal-theme-playful .journal-title {
+    font-family: var(--font-patrick-hand), cursive;
+    font-size: 2.5rem;
+  }
+
+  .journal-theme-kalam .journal-content {
+    font-family: var(--font-kalam), cursive;
+    font-size: 1.4rem;
+    line-height: 2;
+  }
+  .journal-theme-kalam .journal-title {
+    font-family: var(--font-playfair), serif;
+  }
+  
+  /* Page Styles - These apply to the Card component that wraps the entry */
+  .page-style-default {
+    background-color: hsl(var(--card));
+  }
+  .page-style-ruled-paper {
+    background-color: #ffffff;
+    background-image: repeating-linear-gradient(to bottom, hsl(var(--border)/0.3) 0, hsl(var(--border)/0.3) 1px, transparent 1px, transparent 2.5rem);
+    background-size: 100% 2.5rem;
+    color: #333;
+    border-color: #ccc;
+    line-height: 2.5rem;
+  }
+  .page-style-parchment {
+    background-color: #fdf6e3;
+    color: #654321;
+    border: 2px solid #d2b48c;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+  }
+  .page-style-blueprint {
+    background-color: #263a52;
+    background-image:
+      linear-gradient(rgba(173, 216, 230, 0.2) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(173, 216, 230, 0.2) 1px, transparent 1px);
+    background-size: 20px 20px;
+    color: #fff;
+    border-color: #add8e6;
+  }
+  /* Ensure text inside blueprint is visible */
+  .page-style-blueprint,
+  .page-style-blueprint .journal-title,
+  .page-style-blueprint .ProseMirror,
+  .page-style-blueprint .CardDescription {
+    color: #fff;
+  }
+
+  /* Tiptap Rich Text Editor Styles */
+  .ProseMirror {
+    min-height: 250px;
+    padding: 1rem;
+    border: 1px solid hsla(var(--primary), 0.2);
+    border-radius: theme(borderRadius.xl);
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  .ProseMirror:focus {
+    border-color: hsla(var(--primary), 0.5);
+    box-shadow: 0 0 0 4px hsla(var(--primary), 0.1);
+  }
+  .ProseMirror p {
+    margin: 0;
+  }
+  .ProseMirror p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    float: left;
+    color: hsl(var(--muted-foreground));
+    pointer-events: none;
+    height: 0;
+  }
+  .ProseMirror img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+  .ProseMirror img.ProseMirror-selectednode {
+    outline: 3px solid hsl(var(--primary));
+  }
+  
+  /* THIS IS THE FIX: Explicit styling for lists */
+  .ProseMirror ul {
+    list-style-type: disc;
+    padding-left: 2rem;
+  }
+  .ProseMirror ol {
+    list-style-type: decimal;
+    padding-left: 2rem;
+  }
+  
+  .dark .ProseMirror,
+  .page-style-blueprint .ProseMirror {
+    color: hsl(var(--foreground));
+  }
+  
+  .journal-content .ProseMirror {
+    border: none;
+    padding: 0;
+    min-height: auto;
+  }
+  .journal-content .ProseMirror:focus {
+    box-shadow: none;
+  }
+
+  /* A modern clearfix to ensure the container wraps floated images */
+  .journal-content {
+    display: flow-root;
+  }
+  
+  /* Tiptap Image Node View styles */
+  .image-node-view {
+    display: block; /* To allow margin auto to work */
+  }
+
+  .image-node-view button[data-active='true'] {
+    @apply bg-accent text-accent-foreground;
+  }
+
+  /* Safe area insets for floating mobile nav */
+  .safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  /* Premium Mesh Gradient Backgrounds */
+  .mesh-gradient-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    background-color: hsl(var(--background));
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(var(--primary), 0.15) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, hsla(var(--accent), 0.1) 0px, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(var(--primary), 0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(var(--accent), 0.1) 0px, transparent 50%);
+  }
+
+  .mesh-gradient-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.2;
+    animation: mesh-float 25s infinite alternate ease-in-out;
+  }
+
+  .mesh-gradient-circle-1 {
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, hsl(var(--primary)) 0%, transparent 70%);
+    top: -20%;
+    left: -10%;
+    animation-delay: 0s;
+  }
+
+  .mesh-gradient-circle-2 {
+    width: 90vw;
+    height: 90vw;
+    background: radial-gradient(circle, hsl(var(--accent)) 0%, transparent 70%);
+    bottom: -25%;
+    right: -15%;
+    animation-delay: -7s;
+  }
+
+  .glass-card {
+    @apply bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
+  }
+
+  .noise-bg {
+    position: relative;
+  }
+  
+  .noise-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0.03;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  }
+
+  @keyframes mesh-float {
+    0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+    100% { transform: translate(5%, 10%) rotate(5deg) scale(1.1); }
+  }
+}
+
+/* Teacher Highlight Styles */
+.teacher-highlight {
+  background-color: #bfdbfe !important; /* blue-200 */
+  color: #1e3a8a !important; /* blue-900 */
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.2);
+}
+
+.dark .teacher-highlight {
+  background-color: #1e3a8a !important; /* blue-900 */
+  color: #dbeafe !important; /* blue-100 */
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.4);
+}
+
+/* Ensure AI Highlights remain distinct if they use default mark */
+mark:not(.teacher-highlight) {
+  background-color: #fef08a; /* yellow-200 */
+  color: #854d0e; /* yellow-900 */
+}
+
+@layer utilities {
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+}

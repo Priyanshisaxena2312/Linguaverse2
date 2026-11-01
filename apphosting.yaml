@@ -1,0 +1,29 @@
+# Settings to manage and configure a Firebase App Hosting backend.
+# https://firebase.google.com/docs/app-hosting/configure
+
+runConfig:
+  maxInstances: 2
+  minInstances: 0
+  concurrency: 80
+  cpu: 1
+  memoryMiB: 512
+
+env:
+  - variable: NEXT_PUBLIC_SUPABASE_URL
+    value: "https://iispbqepdpeuvweaqogf.supabase.co"
+  - variable: NEXT_PUBLIC_SUPABASE_ANON_KEY
+    secret: SUPABASE_ANON_KEY
+  - variable: SUPABASE_SERVICE_ROLE_KEY
+    secret: SUPABASE_SERVICE_ROLE_KEY
+  - variable: ENCRYPTION_KEY
+    secret: ENCRYPTION_KEY
+  - variable: VERTEX_API_KEY
+    secret: VERTEX_API_KEY
+  - variable: GCP_PROJECT_ID
+    value: "project-ad52e6dd-3419-42ec-a1e"
+  - variable: GCP_REGION
+    value: "us-central1"
+  - variable: NEXT_PUBLIC_SITE_URL
+    value: "http://localhost:9002"
+  - variable: NEXT_PUBLIC_PROXY_URL
+    value: "wss://<YOUR_NEW_CLOUD_RUN_URL>"
